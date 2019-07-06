@@ -10,7 +10,6 @@ Inspired by techniques described by Monkeylord at https://github.com/monkeylord/
 Built on top and leveraging Bitcoin Data Protocol by Unwriter at https://b.bitdb.network/
 
 # Intro
-
 The design goals:
 
 1. A simple protocol to sign arbitrary OP_RETURN data in a single transaction
@@ -19,7 +18,6 @@ The design goals:
 4. Keep the data that needs to be signed small so that devices with limited capacity can be used (e.g. hardware wallets)
 
 # Use Cases
-
 - Prove ownership and authoring of any file
 - Add multiple signatures to form agreements and contracts
 - Decouple identity from funding addresses
@@ -29,11 +27,9 @@ The last point of being able to decouple identity from the funding source addres
 An example is being able to upload a blog post and using Money Button to pay for the mining fees, yet never exposing your Identity key with an on-chain payment.
 
 # Protocol
-
 - The prefix for AUTHOR IDENTITY Protocol is `1HA1Pcu6G5B2PZU75uG8Rxk2ZMNdQiGXhV`
 
 Here's an example of what a **B transactions with HAIP** look like:
-
 ```
 OP_RETURN
   19HxigV4QyBv3tHpQVcUEQyq1pzZVdoAut
@@ -57,15 +53,13 @@ An example with signing [B:// Bitcoin Data](https://github.com/unwriter/B) is sh
 We use the [Bitcom](https://bitcom.bitdb.network) convention to use the pipe '|' to indicate the protocol boundary.
 
 Fields:
-
-1. **Signing Algorithm:** SHA256 - Hash of the hex message in ASM format. UTF-8 encoding.
+1. **Hashing Algorithm:** SHA256 - Hash of the hex message in ASM format.
 2. **Signing Algorithm:** ECDSA - This is the default Bitcoin signing algorithm built into bsv.js. UTF-8 encoding.
 3. **Signing Address:** Bitcoin Address that is used to sign the content. UTF-8 encoding.
 4. **Signature:** The signature of the signed content with the Signing Address. Base64 encoding.
 5. **Field Index <index>:** (Optional) The specific index (relative to Field Offset) that is covered by the Signature.  Non-negative integer hex encoding. When there are no indexes provided, it is assumed that all fields to the left of the AUTHOR IDENTITY prefix are signed (starting with the OP_RETURN 6a).
 
 Example:
-
 ```
 OP_RETURN
   19HxigV4QyBv3tHpQVcUEQyq1pzZVdoAut  // B Prefix
@@ -134,12 +128,9 @@ bsv.Script.buildDataOut(['19HxigV4QyBv3tHpQVcUEQyq1pzZVdoAut','{ "message": "Hel
 ``
 
 # Transaction Examples
-
 ##### 1 signature
-
 File:
-https://static.bitcoinfiles.org/bc9ed5a2995df4d34bcbc187cb8fae209818c0e0d4d6eb005f74656eaaeabd72
-
+https://static.bitcoinfiles.org/5570844c2b7e4cabd0b646a552b523c2e7a772f928053d61697f6185c768a99f
 
 Transaction:
-https://whatsonchain.com/tx/bc9ed5a2995df4d34bcbc187cb8fae209818c0e0d4d6eb005f74656eaaeabd72
+https://whatsonchain.com/tx/5570844c2b7e4cabd0b646a552b523c2e7a772f928053d61697f6185c768a99f
